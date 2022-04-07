@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 // if there is a get requst for this end point(/) then call this function 
+// Route::get('/', function () {
+//     return view('welcome');   //it show welcome.blade.php 
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    $numberOfProjects  = 20;
+    return view('main',
+        ['numberOfProjects' => $numberOfProjects]
+    );   //it show main.blade.php 
 });
+// step1 :
+Route::get('/projects', [ProjectController::class , 'index']);
+// important using vscode prees cte+/  and when you choose ProjectController it will add namespace
+// Route::get('/projects', 'App\Http\Controllers\ProjectController@index'); // old method 
