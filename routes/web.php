@@ -28,3 +28,9 @@ Route::get('/', function () {
 Route::get('/projects', [ProjectController::class , 'index']);
 // important using vscode prees cte+/  and when you choose ProjectController it will add namespace
 // Route::get('/projects', 'App\Http\Controllers\ProjectController@index'); // old method 
+
+Route::get('/projects/create', [ProjectController::class , 'create']);
+// assigned endpoint
+Route::post('/projects', [ProjectController::class , 'store']);
+Route::get('/projects/{id}/edit', [ProjectController::class , 'edit']);
+Route::put('/projects/{id}', [ProjectController::class , 'update']);
