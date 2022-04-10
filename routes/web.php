@@ -32,5 +32,7 @@ Route::get('/projects', [ProjectController::class , 'index']);
 Route::get('/projects/create', [ProjectController::class , 'create']);
 // assigned endpoint
 Route::post('/projects', [ProjectController::class , 'store']);
+
+
 Route::get('/projects/{id}/edit', [ProjectController::class , 'edit']);
 Route::put('/projects/{id}', [ProjectController::class , 'update']);

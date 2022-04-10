@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
    public function index() {
 
-    $projects = [
-        [
-            'id' => 1,
-            'name'=> 'Title1'
-        ],
-        [
-            'id' => 2,
-            'name'=> 'Title2'
-        ]
-        ];
+    $projects = Project::all();
+    // $projects = [
+    //     [
+    //         'id' => 1,
+    //         'name'=> 'Title1'
+    //     ],
+    //     [
+    //         'id' => 2,
+    //         'name'=> 'Title2'
+    //     ]
+    //     ];
         return view('projects.list',[
             // we have to reffer to the placeholder it is not important to be samw as varible 
             'projects' => $projects]
@@ -37,12 +39,12 @@ class ProjectController extends Controller
         // dd($requsest->image_url); 
         // or you can use input there is several choice at this point 
         // dd($requsest->input('image_url')); 
-        $valaidated_data = $requsest->validate([
+        $validated_data = $requsest->validate([
             'name'        => 'required',
             'description' => 'nullable',
             'image_url'   => 'nullable|url'
                             ]);
-                            // dd($valaidated_data);
+                            // dd($validated_data);
                             // database  insert next time 
         // wrong way because we will submit form again and this side effect 
         // return $this->index();
@@ -55,20 +57,22 @@ class ProjectController extends Controller
     //     return view('projects.edit'); // I need to edit projects/edit.blade.php   
     // }
 
-    public function edit() {
-        $project = [
-            'id' => 1,
-            'name' => 'Title1',
-            'description' => 'Description1',
-            'image_url' => '',
-        ];
+    public function edit($id) {
+        // dd($id);
+        $project = Project::find($id);
+        // $project = [
+        //     'id' => 1,
+        //     'name' => 'Title1',
+        //     'description' => 'Description1',
+        //     'image_url' => '',
+        // ];
         return view('projects.list', [
             'project'   => $project
         ]); //projects/edit.blade.php
     }
 
 
-    public function update(Request $request) {
+    public function update($id , Request $request) {
         $validated_data = $request->validate([
             'name'          => 'required',
             'description'   => 'nullable',
@@ -76,6 +80,10 @@ class ProjectController extends Controller
         ]);
         // dd($validated_data);
         // Database update
+        // Project::create($validated_data);
+
+        $project = Project::find($id);
+        $project->update($validated_data);
         return redirect('/projects'); // GET
     }
 }

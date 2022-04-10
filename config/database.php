@@ -38,7 +38,9 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            // where our file can be found 
+            'database' => database_path(env('DB_DATABASE', 'database.sqlite')), 
+            // change the order her 
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
