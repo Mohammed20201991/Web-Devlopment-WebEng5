@@ -20,19 +20,22 @@ use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
     $numberOfProjects  = 20;
-    return view('main',
-        ['numberOfProjects' => $numberOfProjects]
-    );   //it show main.blade.php 
-});
+    return view('main',['numberOfProjects' => $numberOfProjects]);//it show main.blade.php 
+          });
 // step1 :
 Route::get('/projects', [ProjectController::class , 'index']);
 // important using vscode prees cte+/  and when you choose ProjectController it will add namespace
 // Route::get('/projects', 'App\Http\Controllers\ProjectController@index'); // old method 
+// Route::get('/projects/{id}', [ProjectController::class , 'show']);
+// Route::get('/projects/{id}', [ProjectController::class, 'show'])->whereUuid('id');
 
 Route::get('/projects/create', [ProjectController::class , 'create']);
 // assigned endpoint
 Route::post('/projects', [ProjectController::class , 'store']);
 
 
-Route::get('/projects/{id}/edit', [ProjectController::class , 'edit']);
+Route::get('/projects/{id}/edit', [ProjectController::class, 'edit']);
 Route::put('/projects/{id}', [ProjectController::class , 'update']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+
+Route::delete('/projects/{id}', [ProjectController::class, 'delete']);

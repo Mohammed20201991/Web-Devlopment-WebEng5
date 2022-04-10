@@ -1,6 +1,7 @@
 
 @extends('layouts.main')
 @section('content')
+{{-- 10/4/2022 --}}
     <div class="container">
       <div class="row">
 
@@ -13,7 +14,7 @@
               <p class="card-text">{{ $project->description }}</p>
               <p class="card-text">Cool project description</p>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              <a href="#" class="btn btn-primary">Open</a>
+              <a href="/projects/{{ $project['id'] }}" class="btn btn-primary">Open</a>
               <a href="/projects/{{ $project['id'] }}/edit" class="btn btn-secondary">Edit</a>
             </div>
           </div>
@@ -21,3 +22,21 @@
         @endforeach
 
 @endsection
+
+{{-- <div class="container">
+  <div class="row">
+
+          <p class="card-text">Cool project description</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a href="#" class="btn btn-primary">Open</a>
+          <a href="/projects/{{ $project['id'] }}/edit" class="btn btn-secondary">Edit</a>
+        </div>
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+@endsection --}}

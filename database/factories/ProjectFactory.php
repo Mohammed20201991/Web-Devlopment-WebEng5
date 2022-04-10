@@ -22,8 +22,7 @@ class ProjectFactory extends Factory
             'name'=> $this-> faker->lastName(),
             // optional because it can be null
             'description'=> $this-> faker->optional()->sentence(),
-            'image_url'=> $this-> faker->optional()->imageUrl(),
-        ];
+            'image_url'=> $this-> faker->optional()->imageUrl(),];
     }
 }
 
