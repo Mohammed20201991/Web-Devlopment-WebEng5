@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectFormRrequest;
 
 class ProjectController extends Controller
 {
@@ -13,42 +14,41 @@ class ProjectController extends Controller
     // $projects = [
     //     ['id' => 1, 'name'=> 'Title1' ],
     //     [ 'id' => 2,'name'=> 'Title2' ]];
-        return view('projects.list',[
-            // we have to reffer to the placeholder it is not important to be samw as varible 
+        return view('projects.list',[          // we have to reffer to the placeholder it is not important to be samw as varible 
             'projects' => $projects,
-           ]);  //it show projects/list.blade.php       
+           ]);                                  //it show projects/list.blade.php       
     }
 
-    public function show($id) {
-        $project = Project::find($id);
+    public function show(Project $project) 
+    {
+        // $project = Project::find($id);
         return view('projects.show', ['project'   => $project]); // projects/show.blade.php
     }
 
 
     public function create()
-    {
-
+    { 
         return view('projects.create'); // I need to show projects/create.blade.php   
     }
 
-
-    public function store(Request $request )
+    public function store(ProjectFormRrequest $request )
     {
         // dd($requsest->name); // It means   
         // dd($requsest->description);
         // dd($requsest->image_url); 
         // or you can use input there is several choice at this point 
         // dd($requsest->input('image_url')); 
-        $validated_data = $request->validate([
-            'name'        => 'required',
-            'description' => 'nullable',
-            'image_url'   => 'nullable|url']);
+
+        // $validated_data = $request->validate([   // we delted because the validation come before this point from ProjectFormRequest
+        //     'name'        => 'required',
+        //     'description' => 'nullable',
+        //     'image_url'   => 'nullable|url']);
                             // dd($validated_data);
                             // database  insert next time 
         // wrong way because we will submit form again and this side effect 
         // return $this->index();
-        // Project::create($validated_data);
-        return redirect("/projects");  //GET
+        Project::create($request-> validated());
+        return redirect()->route('projects.index');  //GET
     }
 
     // edite same as create 
@@ -57,9 +57,9 @@ class ProjectController extends Controller
     //     return view('projects.edit'); // I need to edit projects/edit.blade.php   
     // }
 
-    public function edit($id) {
+    public function edit(Project $project) {
         // dd($id);
-        $project = Project::find($id);
+        // $project = Project::find($id); we can type annotate and remove selection 
         // $project = [
         //     'id' => 1,
         //     'name' => 'Title1',
@@ -68,23 +68,23 @@ class ProjectController extends Controller
         // ];
         return view('projects.edit', ['project'=> $project]); //projects/edit.blade.php
     }
-    public function update($id , Request $request) {
-        $validated_data = $request->validate([
-            'name'          => 'required',
-            'description'   => 'nullable',
-            'image_url'     => 'nullable|url',
-        ]);
+    public function update(ProjectFormRrequest $project , Request $request) {
+        // $validated_data = $request->validate([  // we ommite because already validated 
+        //     'name'          => 'required',
+        //     'description'   => 'nullable',
+        //     'image_url'     => 'nullable|url',
+        // ]);
         // dd($validated_data);
         // Database update
         // Project::create($validated_data);
 
-        $project = Project::find($id);
-        $project->update($validated_data);
+        // $project = Project::find($id);
+        $project->update($request->validated());
         return redirect('/projects'); // GET
     }
 
-    public function delete($id) {
-        $project = Project::find($id);
+    public function destroy(Project $project) {
+        // $project = Project::find($id);
         $project->delete();
         return redirect('/projects');
     }

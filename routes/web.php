@@ -23,19 +23,21 @@ Route::get('/', function () {
     return view('main',['numberOfProjects' => $numberOfProjects]);//it show main.blade.php 
           });
 // step1 :
-Route::get('/projects', [ProjectController::class , 'index']);
-// important using vscode prees cte+/  and when you choose ProjectController it will add namespace
-// Route::get('/projects', 'App\Http\Controllers\ProjectController@index'); // old method 
-// Route::get('/projects/{id}', [ProjectController::class , 'show']);
-// Route::get('/projects/{id}', [ProjectController::class, 'show'])->whereUuid('id');
+// Route::get('/project', [ProjectController::class , 'index'])->name('projects.index');
+// // important using vscode prees cte+/  and when you choose ProjectController it will add namespace
+// // Route::get('/projects', 'App\Http\Controllers\ProjectController@index'); // old method 
+// // Route::get('/projects/{id}', [ProjectController::class , 'show']);
+// Route::get('/projects/{project}', [ProjectController::class, 'show'])->whereNumber('project');
 
-Route::get('/projects/create', [ProjectController::class , 'create']);
-// assigned endpoint
-Route::post('/projects', [ProjectController::class , 'store']);
+// Route::get('/projects/create', [ProjectController::class , 'create']);
+// // assigned endpoint
+// Route::post('/projects', [ProjectController::class , 'store']);
 
+// Route::get('/projects/{project}/edit', [ProjectController::class, 'edit']);
+// // Route::get('/projects/{project}/edit', [ProjectController::class, 'edit']);
+// Route::put('/projects/{project}', [ProjectController::class , 'update']);
+// // Route::get('/projects/{id}', [ProjectController::class, 'show']);
+// Route::delete('/projects/{project}', [ProjectController::class, 'delete']);
 
-Route::get('/projects/{id}/edit', [ProjectController::class, 'edit']);
-Route::put('/projects/{id}', [ProjectController::class , 'update']);
-Route::get('/projects/{id}', [ProjectController::class, 'show']);
-
-Route::delete('/projects/{id}', [ProjectController::class, 'delete']);
+// with one line of code we can create route registeration
+Route::resource('projects', ProjectController::class);
