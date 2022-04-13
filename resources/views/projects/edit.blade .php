@@ -9,6 +9,7 @@
         @csrf
         @method('PUT')
 
+        <!-- edit same as create just we need old value from database  -->
         <div class="form-group">
           <label for="name">Project name</label>
           <input value="{{ old('name', $project['name']) }}" type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="">

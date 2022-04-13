@@ -16,5 +16,5 @@
       <hr class="my-4">
       <p class="lead">There are <?php echo $numberOfProjects ?>  projects in this apps .</p>
       <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </div>
-    @endsection
+</div>
+@endsection

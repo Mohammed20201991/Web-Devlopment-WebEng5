@@ -41,6 +41,6 @@ Route::get('/', function () {
 // // Route::get('/projects/{id}', [ProjectController::class, 'show']);
 // Route::delete('/projects/{project}', [ProjectController::class, 'delete']);
 
-// with one line of code we can create route registeration
+// with one line of code we can create route registeration instead above code 
 Route::resource('projects', ProjectController::class);
 Route::resource('projects.tracks', TrackController::class)->shallow();

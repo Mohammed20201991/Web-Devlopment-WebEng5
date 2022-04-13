@@ -14,9 +14,9 @@ class ProjectController extends Controller
     // $projects = [
     //     ['id' => 1, 'name'=> 'Title1' ],
     //     [ 'id' => 2,'name'=> 'Title2' ]];
-        return view('projects.list',[          // we have to reffer to the placeholder it is not important to be samw as varible 
+        return view('projects.list',[      // we have to reffer to the placeholder it is not important to be samw as varible 
             'projects' => $projects,
-           ]);                                  //it show projects/list.blade.php       
+           ]);                             //it show projects/list.blade.php       
     }
 
     public function show(Project $project) 
@@ -40,7 +40,7 @@ class ProjectController extends Controller
         // or you can use input there is several choice at this point 
         // dd($requsest->input('image_url')); 
 
-        // $validated_data = $request->validate([   // we delted because the validation come before this point from ProjectFormRequest
+        // $validated_data = $request->validate([// we deleted because the validation come before this point from ProjectFormRequest
         //     'name'        => 'required',
         //     'description' => 'nullable',
         //     'image_url'   => 'nullable|url']);

@@ -24,9 +24,9 @@ class StoreTrackRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required',
-            'filename'      => 'nullable|file',
-             'color'     => 'required|regex:/^#[0-9a-z]{6}$/',
+                'name'      =>  'required',
+                'filename'  =>  'nullable|file',
+                'color'     =>  'required|regex:/^#[0-9a-z]{6}$/',
         ];
     }
 }
