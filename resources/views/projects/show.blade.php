@@ -4,10 +4,12 @@
     <div class="container py-3">
       <h2>{{$project->name}}</h2>
       <p>{{ $project-> description}}</p>
-      <a href="new-track.html" class="btn btn-primary">Add new track</a>
+      <a href="{{route('projects.tracks.create',['project'=>$project->id])}}" class="btn btn-primary">Add new track</a>
+      <a href="/projects/{{ $project['id'] }}/edit" class="btn btn-secondary">Edit</a>
+
       {{-- <a href="new-track.html" class="btn btn-primary">Delete track</a> --}}
       {{-- 2 ways to to get http (anchor and form we will use form instead ) --}}
-      <form action="/projects/{{ $project['id'] }}" method="post">
+      <form action="/projects/{{ $project['id'] }}" method="post" class="d-inline">
         <!-- HTTP methods: get, post, put, delete -->
         @csrf
         @method('delete')
@@ -16,11 +18,12 @@
 
 
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action" style="background-color: #bbb7b4">
+        @foreach ($project->tracks as $track)          
+        <a href="#" class="list-group-item list-group-item-action" style="background-color: {{$track->color}} ">
           <p class="d-flex justify-content-between align-items-center">
             <span> 
-              Track 1 
-              <small>track1.wav</small>
+              {{$track->name}} 
+              <small>{{$track->filename}} </small>
             </span>
             <span class="badge badge-primary badge-pill">Muted</span>
           </p>
@@ -29,21 +32,25 @@
             <li class="list-group-item p-1">Dapibus ac facilisis in</li>
             <li class="list-group-item p-1">Morbi leo risus</li>
           </ul>
-        </a>
-
-        <a href="#" class="list-group-item list-group-item-action" style="background-color: #ab7969">
+        </a>   
+        @endforeach  
+        
+        <a href="#" class="list-group-item list-group-item-action" style="background-color: #ffre3}} ">
           <p class="d-flex justify-content-between align-items-center">
             <span> 
-              Track 1 
-              <small>track1.wav</small>
+              this ids static remove later <br
+              {{-- {{$track->name}}  --}}
+              <p>Track <br></p>
+              {{-- <small>{{$track->filename}} </small> --}}Filename
             </span>
+            <span class="badge badge-primary badge-pill">Muted</span>
           </p>
           <ul class="list-group list-group-horizontal">
             <li class="list-group-item p-1">Cras justo odio</li>
             <li class="list-group-item p-1">Dapibus ac facilisis in</li>
             <li class="list-group-item p-1">Morbi leo risus</li>
           </ul>
-        </a>
+        </a>   
       </div>
     </div>
 

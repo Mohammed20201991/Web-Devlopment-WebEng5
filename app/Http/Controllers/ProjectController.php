@@ -21,8 +21,9 @@ class ProjectController extends Controller
 
     public function show(Project $project) 
     {
+        // dd($project->tracks);
         // $project = Project::find($id);
-        return view('projects.show', ['project'   => $project]); // projects/show.blade.php
+        return view('projects.show', ['project'  => $project]); // projects/show.blade.php
     }
 
 

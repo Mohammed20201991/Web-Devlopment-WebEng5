@@ -10,4 +10,8 @@ class Project extends Model
     use HasFactory;
     // can be  Eloquent\MassAssignmentException
     public $fillable = ['name','description','image_url'];
+    
+    public function tracks(){
+    return $this->hasMany(Track::class);
+    }
 }

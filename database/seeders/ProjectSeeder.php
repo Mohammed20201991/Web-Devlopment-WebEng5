@@ -18,6 +18,9 @@ class ProjectSeeder extends Seeder
     {
         // if we want to reset auto increment to zero 
         DB::table('projects')->truncate();
-        Project::Factory()->count(10)->create();
+        Project::factory()
+        ->hasTracks(5)
+        ->count(10)
+        ->create();
     }
 }

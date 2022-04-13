@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TrackController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +43,4 @@ Route::get('/', function () {
 
 // with one line of code we can create route registeration
 Route::resource('projects', ProjectController::class);
+Route::resource('projects.tracks', TrackController::class)->shallow();
