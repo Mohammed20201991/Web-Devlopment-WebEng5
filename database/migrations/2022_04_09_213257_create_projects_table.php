@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +19,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('image_url')->nullable();
+            // we can use this way instead of the 2 lines commited bellow 
+            $table->foreignIdFor(User::class)->cascadeOnDelete();
+            // $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

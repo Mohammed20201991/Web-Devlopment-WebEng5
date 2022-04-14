@@ -26,6 +26,7 @@ class TrackController extends Controller
      */
     public function create(Project $project)
     {
+        $this->authorize('access', $project);
         return view('tracks.create',[
                                     'project' => $project]
     ); // tracks/create.blade.php
@@ -39,6 +40,7 @@ class TrackController extends Controller
      */
     public function store(StoreTrackRequest $request,Project $project)
     {
+        $this->authorize('access', $project);
         $project->tracks()->create( $request->validated() );
         return redirect()->route('projects.show',['project' => $project->id]);
     }
@@ -51,7 +53,7 @@ class TrackController extends Controller
      */
     public function show(Track $track)
     {
-        //
+        $this->authorize('access',$track);
     }
 
     /**
@@ -61,8 +63,11 @@ class TrackController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Track $track)
-    {
-        //
+    { 
+        //  $this->authorize('access', $project);
+        $this->authorize('access',$track);
+        return view('tracks.edit',[
+                    'track' => $track]);
     }
 
     /**
@@ -72,11 +77,13 @@ class TrackController extends Controller
      * @param  \App\Models\Track  $track
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTrackRequest $request, Track $track)
+    public function update(StoreTrackRequest $request, Track $track)
     {
-        //
+        // dd($track); // you can down done every time to see 
+        $this->authorize('access',$track);
+        $track->update($request->validated()); // after secss redirect to show page 
+        return redirect()->route('project.show',['project'=>$track->project_id]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -85,6 +92,8 @@ class TrackController extends Controller
      */
     public function destroy(Track $track)
     {
-        //
+        $this->authorize('access',$track);
+        $track->delete();
+        return redirect()->route('projects.show', ['project' => $track->project_id]);
     }
 }

@@ -1,9 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TrackController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,5 +41,8 @@ Route::get('/', function () {
 // Route::delete('/projects/{project}', [ProjectController::class, 'delete']);
 
 // with one line of code we can create route registeration instead above code 
-Route::resource('projects', ProjectController::class);
-Route::resource('projects.tracks', TrackController::class)->shallow();
+Route::resource('projects', ProjectController::class)->middleware('auth');
+Route::resource('projects.tracks', TrackController::class)->shallow()->middleware('auth');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

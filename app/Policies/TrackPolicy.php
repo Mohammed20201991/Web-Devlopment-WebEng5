@@ -16,79 +16,8 @@ class TrackPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function access(User $user, Track $track)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Track  $track
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Track $track)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Track  $track
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Track $track)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Track  $track
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Track $track)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Track  $track
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Track $track)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Track  $track
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Track $track)
-    {
-        //
+        return $user->id === $track->project->user_id; // when the track can accses the project when the track acsessuser id         
     }
 }

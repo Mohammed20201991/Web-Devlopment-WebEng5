@@ -41,4 +41,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // one to many relashinship  1-N first step withe function below  
+    public function projects(){
+        return $this->hasMany(Project::class);
+        }
+
+    // public function users(){
+    //     return $this->belongsTo(User::class);
+    //     }
+        // and the second step is to applay this Knowlge on the table structure 
 }
+

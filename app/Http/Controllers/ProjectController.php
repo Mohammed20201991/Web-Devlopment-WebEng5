@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjectFormRrequest;
+use Illuminate\Support\Facades\Auth;
+// use Auth; //short cat way for above 
 
 class ProjectController extends Controller
 {
    public function index() {
 
-    $projects = Project::all();
+    // $projects = Project::all(); instead of selecting all the projects we need only related 
     // $projects = [
     //     ['id' => 1, 'name'=> 'Title1' ],
     //     [ 'id' => 2,'name'=> 'Title2' ]];
         return view('projects.list',[      // we have to reffer to the placeholder it is not important to be samw as varible 
-            'projects' => $projects,
+            'projects' => Auth::user()->projects,  // Authentcated user and select all the projects 
            ]);                             //it show projects/list.blade.php       
     }
 
@@ -23,6 +25,7 @@ class ProjectController extends Controller
     {
         // dd($project->tracks);
         // $project = Project::find($id);
+        $this->authorize('access', $project);
         return view('projects.show', ['project'  => $project]); // projects/show.blade.php
     }
 
@@ -48,7 +51,8 @@ class ProjectController extends Controller
                             // database  insert next time 
         // wrong way because we will submit form again and this side effect 
         // return $this->index();
-        Project::create($request-> validated());
+        // Project::create($request-> validated());
+        Auth::user()->projects->create($request-> validated());
         return redirect()->route('projects.index');  //GET
     }
 
@@ -67,6 +71,7 @@ class ProjectController extends Controller
         //     'description' => 'Description1',
         //     'image_url' => '',
         // ];
+        $this->authorize('access', $project);   // user can edit only her project
         return view('projects.edit', ['project'=> $project]); //projects/edit.blade.php
     }
     public function update(ProjectFormRrequest $project , Request $request) {
@@ -80,12 +85,14 @@ class ProjectController extends Controller
         // Project::create($validated_data);
 
         // $project = Project::find($id);
+        $this->authorize('access', $project);    // user can update only her project
         $project->update($request->validated());
         return redirect('/projects'); // GET
     }
 
     public function destroy(Project $project) {
         // $project = Project::find($id);
+        $this->authorize('access', $project); // user can destroy only her project
         $project->delete();
         return redirect('/projects');
     }
